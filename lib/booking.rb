@@ -18,18 +18,15 @@ class Booking < ActiveRecord::Base
         new_waiter
     end
 
-    def update_booking
-
+    def cancel_booking
+        self.destroy
+        puts "This booking has been cancelled"
     end
     #booking details - to the resturant
     
     #cancel_booking
     
     #update booking details #run change waiter (if necessary)
-    
-    
-    
-    #change waiter
     
     #calculate total based on group size & waiter assignment
     #stats
