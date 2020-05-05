@@ -8,7 +8,6 @@ class Waiter < ActiveRecord::Base
         puts "Congrats, you have hired #{w.name}!"
         w
     end
-
     #Instance mehtod fire waiter deletes the object & corresponding database row that the method is called upon
      #figure out how to only fire an employee
     def fire_waiter
@@ -19,7 +18,6 @@ class Waiter < ActiveRecord::Base
         #else
         #    puts "This person is not an employee"
        # end
-       # binding.pry
     end
 end
 

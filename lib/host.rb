@@ -1,9 +1,14 @@
 class Host < ActiveRecord::Base 
     has_many :bookings
 
- #Create a booking when a new host is created
- #Helper method best waiter will return the most suitable witer based on host attributes  
-    
+    #creates a booking for a specific day, and assigns a waiter to the booking
+    def create_booking(day)
+        new_booking = Booking.create(host_id: self.id,day: day)
+        puts "A new booking has been created for #{self.name} on #{day}."
+        new_booking.assign_waiter
+        puts "#{new_booking.waiter.name} has been assigned to #{self.name}'s booking'."
+    end
+
  #returns best selling style based on group size
     def best_selling_style
          style = nil
@@ -17,13 +22,6 @@ class Host < ActiveRecord::Base
         style
     end
 
-
-    def create_booking(day)
-        new_booking = Booking.create(host_id: self.id,day: day)
-        puts "A new booking has been created for #{self.name} on #{day}."
-        new_booking.assign_waiter
-        puts "Waiter waiter_name has been assigned to #{self.name}."
-     end
   
 end
 
