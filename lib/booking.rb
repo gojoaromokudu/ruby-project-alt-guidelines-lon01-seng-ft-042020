@@ -2,8 +2,6 @@ class Booking < ActiveRecord::Base
     belongs_to :host
     belongs_to :waiter
 
-  
-   
     #assigns waiter to booking based on selling style
     def assign_waiter
         #check if they have capacity

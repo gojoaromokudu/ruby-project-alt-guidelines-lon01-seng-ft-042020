@@ -8,6 +8,7 @@ task :console do
   gbenga = Waiter.find_by(name: "Gbenga")
   dan = Waiter.find_by(name: "Dan")
   dorothy = Waiter.find_by(name: "Dorothy")
+  saif = Waiter.find_by(name: "Saif")
 
   elena = Host.find_by(name: "Elena")
   anderson = Host.find_by(name: "Anderson")
