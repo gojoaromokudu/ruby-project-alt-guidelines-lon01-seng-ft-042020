@@ -27,4 +27,6 @@ task :test do
  puts "Testing if Elena exists: #{!test_elena.nil?} "
  test_anderson = Host.find_by(name: "Anderson")
  puts "Testing if Anderson exists: #{!test_anderson.nil?} "
+ test_saif = Host.find_by(name: "Saif")
+ puts "Testing if Saif exists: #{!test_saif.nil?} "
 end
