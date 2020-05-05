@@ -20,10 +20,10 @@ class Host < ActiveRecord::Base
  
     def create_booking(day)
     new_booking = Booking.create(host_id: self.id,day: day)
-    #waiter_id = new_booking.assign_waiter.id
+  
     puts "A new booking has been created for #{self.name}."
-    new_booking.assign_waiter.save
-    puts "Waiter waiter_name has been assigne to #{self.name}."
+    new_booking.assign_waiter
+    puts "Waiter waiter_name has been assigned to #{self.name}."
     binding.pry
    end
   

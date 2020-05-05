@@ -8,7 +8,7 @@ class Booking < ActiveRecord::Base
     def assign_waiter
         #check if they have capacity
        waiter = Waiter.all.find{|w| w.selling_style == self.host.best_selling_style}
-       self.waiter_id = waiter.id
+       self.update(waiter_id: waiter.id)
        waiter
     end
 
