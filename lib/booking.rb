@@ -2,18 +2,23 @@ class Booking < ActiveRecord::Base
     belongs_to :host
     belongs_to :waiter
 
-   #create booking 
-   def create_booking()
-   end
+  
    
-   
+    #assigns waiter to booking based on selling style
+    def assign_waiter
+        #check if they have capacity
+       waiter = Waiter.all.find{|w| w.selling_style == self.host.best_selling_style}
+       self.waiter_id = waiter.id
+       waiter
+    end
+
     #booking details - to the resturant
     
     #cancel_booking
     
     #update booking details #run change waiter (if necessary)
     
-    #assign_waiter
+    
     
     #change waiter
     
