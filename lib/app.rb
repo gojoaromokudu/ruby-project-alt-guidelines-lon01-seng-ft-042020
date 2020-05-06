@@ -105,7 +105,7 @@ class RestaurantApp
             hire_waiter_menu
         when 2
             puts "Let's fire a waiter"
-            #fire_waiter_menu
+            fire_waiter_menu
         when 3
           puts "Going back to the Main Menu"
           main_menu
@@ -208,6 +208,20 @@ class RestaurantApp
         sleep(1)
         new_waiter_capacity = prompt.slider('Capacity',min: 10, max: 40, step: 5, default: 10)
         Waiter.hire_waiter(name: new_waiter_name,selling_style: new_waiter_selling_style,capacity: new_waiter_capacity)
+        puts "Done!"
+        puts "Going back to the Waiter menu"
+        sleep (2)
+        waiter_menu
+    end
+
+    def fire_waiter_menu
+        prompt = TTY::Prompt.new
+        puts "You can fire a new waiter here"
+
+        waiter_to_be_fired_name = prompt.ask("Who would you like to fire? Please state their name:")
+        # => Who would you like to fire?
+        waiter_to_be_fired = Waiter.find_by(name: waiter_to_be_fired_name)
+        waiter_to_be_fired.fire_waiter
         puts "Done!"
         puts "Going back to the Waiter menu"
         sleep (2)
