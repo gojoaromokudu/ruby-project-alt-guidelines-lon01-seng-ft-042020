@@ -89,7 +89,27 @@ class RestaurantApp
     end
 
     def waiter_menu
-    
+        prompt = TTY::Prompt.new
+        choices = [
+        {name: 'Hire Waiter', value: 1},
+        {name: 'Fire Waiter', value: 2},
+        {name: 'Back to Main Menu', value: 3}
+        ]
+      
+        puts "This is the Waiter Menu"
+        user_input = prompt.select("What would you like to do?", choices)
+        
+        case user_input
+        when 1
+            puts "Let's hire a waiter"
+            hire_waiter_menu
+        when 2
+            puts "Let's fire a waiter"
+            #fire_waiter_menu
+        when 3
+          puts "Going back to the Main Menu"
+          main_menu
+        end
     end
     
     def host_menu
@@ -172,10 +192,30 @@ class RestaurantApp
         sleep (2)
         booking_menu
     end
-######END OF BOOKING MENU
+ ######END OF BOOKING MENU
 
-###### WAITER 
-    def logout
+ ###### WAITER MENU
+    def hire_waiter_menu
+        prompt = TTY::Prompt.new
+        selling_styles = ["knowledgeable","attention to detail","pushy"]
+
+        puts "You can hire a new waiter here"
+        new_waiter_name = prompt.ask("Who would you like to hire? Please state their name:")
+        # => Who would you like to hire?
+        new_waiter_selling_style = prompt.select("What is their selling style? Please choose from options below", selling_styles)
+        # => What is their selling style?
+        puts "Final question - how many customers can they manage at once?"
+        sleep(1)
+        new_waiter_capacity = prompt.slider('Capacity',min: 10, max: 40, step: 5, default: 10)
+        Waiter.hire_waiter(name: new_waiter_name,selling_style: new_waiter_selling_style,capacity: new_waiter_capacity)
+        puts "Done!"
+        puts "Going back to the Waiter menu"
+        sleep (2)
+        waiter_menu
+    end
+ ###### END OF WAITER MENU
+ 
+ def logout
 
     end
 end
