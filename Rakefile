@@ -8,7 +8,6 @@ task :console do
   gbenga = Waiter.find_by(name: "Gbenga")
   dan = Waiter.find_by(name: "Dan")
   dorothy = Waiter.find_by(name: "Dorothy")
-  saif = Waiter.find_by(name: "Saif")
 
   elena = Host.find_by(name: "Elena")
   anderson = Host.find_by(name: "Anderson")
@@ -27,8 +26,6 @@ task :test do
  puts "Testing if Elena exists: #{!test_elena.nil?} "
  test_anderson = Host.find_by(name: "Anderson")
  puts "Testing if Anderson exists: #{!test_anderson.nil?} "
- test_saif = Host.find_by(name: "Saif")
- puts "Testing if Saif exists: #{!test_saif.nil?} "
 end
 
 

@@ -55,11 +55,12 @@ class RestaurantApp
     def booking_menu
         prompt = TTY::Prompt.new
         choices = [
-        {name: 'Assign Waiter', value: 1},
-        {name: 'Change Waiter', value: 2},
-        {name: 'Cancel Booking', value: 3},
-        {name: 'View Total', value: 4},
-        {name: 'Back to Main Menu', value: 5}
+        {name: 'View Booking Details', value: 1},
+        {name: 'Assign Waiter', value: 2},
+        {name: 'Change Waiter', value: 3},
+        {name: 'Cancel Booking', value: 4},
+        {name: 'View Total', value: 5},
+        {name: 'Back to Main Menu', value: 6}
         ]
       
         puts "This is the Booking Menu"
@@ -67,18 +68,21 @@ class RestaurantApp
         
         case user_input
         when 1
+            puts "Let's check booking details"
+            view_booking_menu
+        when 2
             puts "Let's Assign a waiter"
             assign_waiter_menu
-        when 2
+        when 3
             puts "Let's change the waiter for this booking"
             change_waiter_menu
-        when 3
+        when 4
             puts "Let's cancel this booking"
            cancel_booking_menu
-        when 4
-            puts "Let's view the total for this booking"
-           # show_total
         when 5
+            puts "Let's view the total for this booking"
+           show_payment_menu
+        when 6
           puts "Going back to the Main Menu"
           main_menu
         end
@@ -91,8 +95,23 @@ class RestaurantApp
     def host_menu
     
     end
+##### END OF MAIN MENU
 
 ##### BOOKING MENU
+    def view_booking_menu
+        prompt = TTY::Prompt.new
+        puts "You can view booking details here"
+        host_name_for_booking = prompt.ask("Who's booking to see details for? Please state the name of the host:")
+        # => Who's booking to see details for?
+        host_to_show_details_for = Host.find_by(name: host_name_for_booking)
+        booking_to_show_details_for = Booking.find_by(host_id:host_to_show_details_for.id)
+        booking_to_show_details_for.booking_details
+        puts "Done!"
+        puts "Going back to the Booking menu"
+        sleep (2)
+        booking_menu
+    end
+
     def assign_waiter_menu
         prompt = TTY::Prompt.new
         puts "You can assign a waiter here"
@@ -137,8 +156,25 @@ class RestaurantApp
         sleep (2)
         booking_menu
     end
+
+    def show_payment_menu
+        prompt = TTY::Prompt.new
+        puts "You can see a reciept for a particular booking here"
+        host_name_for_booking = prompt.ask("Who's booking would you like to see a reciept for? Please state the name of the host:")
+        # => Who's booking would you like to see a reciept for?
+        host_to_find_booking_for = Host.find_by(name: host_name_for_booking)
+        #can be shortened
+        booking_to_find_reciept_for = Booking.find_by(host_id:host_to_find_booking_for.id)
+        booking_to_find_reciept_for.show_total
+        booking_to_find_reciept_for.show_reciept
+        puts "Done!"
+        puts "Going back to the Booking menu"
+        sleep (2)
+        booking_menu
+    end
 ######END OF BOOKING MENU
 
+###### WAITER 
     def logout
 
     end

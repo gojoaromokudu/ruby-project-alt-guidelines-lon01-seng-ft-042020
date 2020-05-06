@@ -4,5 +4,11 @@ Waiter.create(name:"Gbenga",selling_style: "pushy",capacity:10)
 Waiter.create(name:"Dan",selling_style: "knowledgeable",capacity:30)
 
 Host.destroy_all
-Host.create(name:"Anderson",group_size: 2,allergies:"Shellfish")
-Host.create(name:"Elena",group_size: 9)
+anderson = Host.create(name:"Anderson",group_size: 2,allergies:"Shellfish")
+elena = Host.create(name:"Elena",group_size: 9)
+
+Booking.destroy_all
+random_day1 = ["Mon","Tues","Weds","Thurs","Fri","Sat"].sample
+Booking.create(host_id: anderson.id,day: random_day1)
+random_day2 = ["Mon","Tues","Weds","Thurs","Fri","Sat"].sample
+Booking.create(host_id: elena.id,day: random_day2)

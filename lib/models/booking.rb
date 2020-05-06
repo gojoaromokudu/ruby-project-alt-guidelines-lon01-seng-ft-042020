@@ -30,8 +30,6 @@ class Booking < ActiveRecord::Base
     #calculates subtotal for the booking
     def calculate_sub_total
         sub_total = self.host.group_size * 10
-        #Dorothy - can you figure out a way to get the host from this booking, so
-        #we can then do .group_size
         self.update(sub_total: sub_total)
         puts "The subtotal for this booking is £#{self.sub_total}."
     end
@@ -41,7 +39,7 @@ class Booking < ActiveRecord::Base
         service_charge_percentage = nil
         if self.host.group_size <= 4
             service_charge_percentage = 0
-        elsif self.host.group_size >4 && self.group_size <= 8
+        elsif self.host.group_size >4 && self.host.group_size <= 8
             service_charge_percentage = 0.06
         elsif self.host.group_size > 8
             service_charge_percentage = 0.125
@@ -64,12 +62,18 @@ class Booking < ActiveRecord::Base
         calculate_total 
     end
 
+    def show_reciept
+        puts "The total spend for this meal was £#{self.total}, including a service fee of £#{self.service_charge}."
+    end
+
     #Booking instance method returns a string detailing the booking details
     def booking_details
         if self.total
         p "#{self.host.name}'s booking for #{self.day} with a group size of #{self.host.group_size} was assigned to the waiter #{self.waiter.name}, their total spend for that meal was £#{self.total}, including a service fee of £#{self.service_charge}."
-        else 
-        p "#{self.host.name} has made a booking for #{self.day} with a group size of #{self.host.group_size}. They are assigned to the waiter #{self.waiter.name}."
+        elsif self.waiter
+            p "#{self.host.name} has made a booking for #{self.day} with a group size of #{self.host.group_size}. They are assigned to the waiter #{self.waiter.name}."
+        else
+            p "#{self.host.name} has made a booking for #{self.day} with a group size of #{self.host.group_size}."
         end    
     end
 

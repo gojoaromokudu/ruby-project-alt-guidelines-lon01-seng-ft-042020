@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_05_093342) do
+ActiveRecord::Schema.define(version: 2020_05_06_150339) do
 
   create_table "bookings", force: :cascade do |t|
     t.integer "waiter_id"
@@ -25,8 +25,6 @@ ActiveRecord::Schema.define(version: 2020_05_05_093342) do
   create_table "hosts", force: :cascade do |t|
     t.string "name"
     t.integer "group_size"
-    t.integer "section"
-    t.float "avg_age"
     t.string "allergies"
   end
 
