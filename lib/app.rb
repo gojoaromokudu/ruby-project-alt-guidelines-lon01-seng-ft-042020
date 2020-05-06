@@ -51,7 +51,7 @@ class RestaurantApp
             sleep (2)
         end
     end
-
+####### MAIN MENU 
     def booking_menu
         prompt = TTY::Prompt.new
         choices = [
@@ -74,7 +74,7 @@ class RestaurantApp
             change_waiter_menu
         when 3
             puts "Let's cancel this booking"
-           # cancel_booking
+           cancel_booking_menu
         when 4
             puts "Let's view the total for this booking"
            # show_total
@@ -84,6 +84,15 @@ class RestaurantApp
         end
     end
 
+    def waiter_menu
+    
+    end
+    
+    def host_menu
+    
+    end
+
+##### BOOKING MENU
     def assign_waiter_menu
         prompt = TTY::Prompt.new
         puts "You can assign a waiter here"
@@ -107,7 +116,6 @@ class RestaurantApp
         #can be shortened
         booking_to_change_waiter = Booking.find_by(host_id:host_to_change_waiter.id)
         new_waiter = prompt.ask("Who would you like the new waiter to be? Please state the name of the waiter:")
-       # binding.pry
         booking_to_change_waiter.change_waiter_by_name(new_waiter)
         puts "Done!"
         puts "Going back to the Booking menu"
@@ -115,13 +123,21 @@ class RestaurantApp
         booking_menu
     end
 
-    def waiter_menu
-
+    def cancel_booking_menu
+        prompt = TTY::Prompt.new
+        puts "You can cancel a booking here"
+        host_name_for_booking = prompt.ask("Who's booking would you like to cancel? Please state the name of the host:")
+        # => Who's booking would you like to cancel?
+        host_to_cancel_booking = Host.find_by(name: host_name_for_booking)
+        #can be shortened
+        booking_to_cancel = Booking.find_by(host_id:host_to_cancel_booking.id)
+        booking_to_cancel.cancel_booking
+        puts "Done!"
+        puts "Going back to the Booking menu"
+        sleep (2)
+        booking_menu
     end
-
-    def host_menu
-    
-    end
+######END OF BOOKING MENU
 
     def logout
 
