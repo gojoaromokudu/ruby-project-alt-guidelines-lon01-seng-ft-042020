@@ -4,6 +4,6 @@ require_relative '../config/seed'
 
 app = RestaurantApp.new
 app.run
-app.login
+
 
 puts "Thanks for using our app"

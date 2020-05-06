@@ -57,14 +57,28 @@ class Booking < ActiveRecord::Base
         puts "The total for this booking is £#{self.total}."
     end
 
-    #Returns a string detailing a completed bookings details
-    #In future create methods so we can find a host & waiter given a foreign key
-    def booking_details
-        "#{Host.all.find(self.host_id).name}'s booking for #{self.day} with a group size of #{Host.all.find(pself.host_id).group_size} was assigned to the waiter #{Waiter.all.find(self.waiter_id).name}, their total spend for that meal was £#{self.total}, including a service fee of £#{self.service_charge}."
+    def show_total
+        calculate_sub_total
+        calculate_service_charge
+        calculate_total 
     end
 
-self.totalend
-     en        end    elsebegin
-        else
-            p "#{find_host.name} has a booking for #{self.day} with a group size of #{find_host.group_size} they are assigned the waiter #{find_waiter.name}
+    #Booking instance method returns a string detailing the booking details
+    def booking_details
+        if self.total
+        p "#{self.host.name}'s booking for #{self.day} with a group size of #{self.host.group_size} was assigned to the waiter #{self.waiter.name}, their total spend for that meal was £#{self.total}, including a service fee of £#{self.service_charge}."
+        else 
+        p "#{self.host.name} has made a booking for #{self.day} with a group size of #{self.host.group_size}. They are assigned to the waiter #{self.waiter.name}."
+        end    
+    end
 
+    #Booking instance method updates attribute values of the corresponding host object
+    def update_host(value)
+        if value.class == Integer
+        self.host.update(group_size: value)
+        elsif
+            value.class == String
+        self.host.update(allergies: value)
+        end
+    end
+end
