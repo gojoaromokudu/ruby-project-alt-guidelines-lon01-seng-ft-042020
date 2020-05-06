@@ -2,4 +2,8 @@
 require_relative '../config/environment'
 require_relative '../config/seed'
 
-puts "hello world"
+app = RestaurantApp.new
+app.run
+app.login
+
+puts "Thanks for using our app"

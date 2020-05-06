@@ -30,3 +30,9 @@ task :test do
  test_saif = Host.find_by(name: "Saif")
  puts "Testing if Saif exists: #{!test_saif.nil?} "
 end
+
+
+desc 'run pry'
+task :testing do
+  Pry.start
+end

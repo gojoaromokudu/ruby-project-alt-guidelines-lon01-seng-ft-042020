@@ -25,7 +25,6 @@ class Booking < ActiveRecord::Base
     #booking details - to the resturant - Dorothy
 
     #update booking details #run change waiter (if necessary) - Dorothy
-    #calculate total based on group size & waiter assignment
     
     #calculates subtotal for the booking
     def calculate_sub_total
@@ -57,4 +56,15 @@ class Booking < ActiveRecord::Base
         self.update(total: total)
         puts "The total for this booking is £#{self.total}."
     end
-end
+
+    #Returns a string detailing a completed bookings details
+    #In future create methods so we can find a host & waiter given a foreign key
+    def booking_details
+        "#{Host.all.find(self.host_id).name}'s booking for #{self.day} with a group size of #{Host.all.find(pself.host_id).group_size} was assigned to the waiter #{Waiter.all.find(self.waiter_id).name}, their total spend for that meal was £#{self.total}, including a service fee of £#{self.service_charge}."
+    end
+
+self.totalend
+     en        end    elsebegin
+        else
+            p "#{find_host.name} has a booking for #{self.day} with a group size of #{find_host.group_size} they are assigned the waiter #{find_waiter.name}
+
