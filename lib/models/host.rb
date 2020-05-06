@@ -1,6 +1,12 @@
 class Host < ActiveRecord::Base 
     has_many :bookings
 
+    #checks if if a host already exists with these details, and if yes, return them. If no, create a new one
+    def self.create_host(name:name, group_size:group_size,allergies:allergies)
+        h = Host.find_or_create_by(name: name ,group_size:group_size ,allergies:allergies)
+        puts "You've got a new host called #{h.name}!"
+        h
+    end
     #creates a booking for a specific day, and assigns a waiter to the booking
     def create_booking(day)
         new_booking = Booking.create(host_id: self.id,day: day)

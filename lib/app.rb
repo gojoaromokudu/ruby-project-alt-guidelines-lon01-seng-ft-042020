@@ -55,12 +55,13 @@ class RestaurantApp
     def booking_menu
         prompt = TTY::Prompt.new
         choices = [
-        {name: 'View Booking Details', value: 1},
-        {name: 'Assign Waiter', value: 2},
-        {name: 'Change Waiter', value: 3},
-        {name: 'Cancel Booking', value: 4},
-        {name: 'View Total', value: 5},
-        {name: 'Back to Main Menu', value: 6}
+        {name: 'Create Booking', value: 1},
+        {name: 'View Booking Details', value: 2},
+        {name: 'Assign Waiter', value: 3},
+        {name: 'Change Waiter', value: 4},
+        {name: 'Cancel Booking', value: 5},
+        {name: 'View Total', value: 6},
+        {name: 'Back to Main Menu', value: 7}
         ]
       
         puts "This is the Booking Menu"
@@ -68,21 +69,24 @@ class RestaurantApp
         
         case user_input
         when 1
-            puts "Let's check booking details"
-            view_booking_menu
+            puts "Let's create a booking"
+            create_booking_menu
         when 2
+            puts "Let's view booking details"
+            view_booking_menu
+        when 3
             puts "Let's Assign a waiter"
             assign_waiter_menu
-        when 3
+        when 4
             puts "Let's change the waiter for this booking"
             change_waiter_menu
-        when 4
+        when 5
             puts "Let's cancel this booking"
            cancel_booking_menu
-        when 5
+        when 6
             puts "Let's view the total for this booking"
            show_payment_menu
-        when 6
+        when 7
           puts "Going back to the Main Menu"
           main_menu
         end
@@ -112,12 +116,57 @@ class RestaurantApp
         end
     end
     
-    def host_menu
-    
-    end
+    # def host_menu
+    #     prompt = TTY::Prompt.new
+    #     choices = [
+    #     {name: 'View Host', value: 1},
+    #     {name: 'View All Hosts', value: 2},
+    #     {name: 'Back to Main Menu', value: 3}
+    #     ]
+      
+    #     puts "This is the Host Menu"
+    #     user_input = prompt.select("What would you like to do?", choices)
+        
+    #     case user_input
+    #     when 1
+    #         puts "Let's view a host"
+    #        # view_host_menu
+    #     when 2
+    #         puts "Let's view all hosts"
+    #         #view_all_hosts_menu
+    #     when 3
+    #       puts "Going back to the Main Menu"
+    #       main_menu
+    #     end
+    # end
 ##### END OF MAIN MENU
 
 ##### BOOKING MENU
+    def create_booking_menu
+        prompt = TTY::Prompt.new
+        puts "You can create a new booking here"
+        #this will only create a new host if none already exists with these exact details
+        host_name_for_booking = prompt.ask("Who's the booking for? Please state the name of the host:")
+        # => Who's booking for?
+        host_group_size_for_booking = prompt.ask("How many people? Please state the total number of guests inclduing the host:")
+        # => How many people?
+        host_allergies_for_booking = prompt.ask("Any allergies? Please state them with a comma between each one:")
+        # => Any allergies?
+        days_choices = ["Mon","Tues","Weds","Thurs","Fri","Sat"]
+        day_for_booking = prompt.select("What day of the week? Please choose from our available days:", days_choices)
+        # => Any allergies?
+
+        host_for_booking = Host.create_host(name:host_name_for_booking, group_size:host_group_size_for_booking,allergies:host_allergies_for_booking)
+        puts "A new host profile has been created for #{host_for_booking.name}."
+        sleep(2)
+        host_for_booking.create_booking(day_for_booking)
+        sleep(2)
+        puts "Done!"
+        puts "Going back to the Booking menu"
+        sleep (2)
+        booking_menu
+    end
+
     def view_booking_menu
         prompt = TTY::Prompt.new
         puts "You can view booking details here"
