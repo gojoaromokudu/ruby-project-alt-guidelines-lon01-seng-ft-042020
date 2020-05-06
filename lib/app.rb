@@ -67,11 +67,11 @@ class RestaurantApp
         
         case user_input
         when 1
-          puts "Let's Assign a waiter"
-          assign_waiter_menu
+            puts "Let's Assign a waiter"
+            assign_waiter_menu
         when 2
             puts "Let's change the waiter for this booking"
-           # change_waiter
+            change_waiter_menu
         when 3
             puts "Let's cancel this booking"
            # cancel_booking
@@ -92,6 +92,23 @@ class RestaurantApp
         host_to_be_assigned_waiter = Host.find_by(name: host_name_for_booking)
         booking_to_be_assigned_waiter = Booking.find_by(host_id:host_to_be_assigned_waiter.id)
         booking_to_be_assigned_waiter.assign_waiter
+        puts "Done!"
+        puts "Going back to the Booking menu"
+        sleep (2)
+        booking_menu
+    end
+
+    def change_waiter_menu
+        prompt = TTY::Prompt.new
+        puts "You can change a waiter for a booking here"
+        host_name_for_booking = prompt.ask("Who's booking would you like to change a waiter for? Please state the name of the host:")
+        # => Who's booking would you like to change a waiter for?
+        host_to_change_waiter = Host.find_by(name: host_name_for_booking)
+        #can be shortened
+        booking_to_change_waiter = Booking.find_by(host_id:host_to_change_waiter.id)
+        new_waiter = prompt.ask("Who would you like the new waiter to be? Please state the name of the waiter:")
+       # binding.pry
+        booking_to_change_waiter.change_waiter_by_name(new_waiter)
         puts "Done!"
         puts "Going back to the Booking menu"
         sleep (2)

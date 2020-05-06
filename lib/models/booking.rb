@@ -12,9 +12,10 @@ class Booking < ActiveRecord::Base
 
     #updates booking.waiter to a new waiter by name
     def change_waiter_by_name(new_waiter_name)
+        old_waiter = self.waiter
         new_waiter = Waiter.find_by(name: new_waiter_name)
         self.update(waiter_id: new_waiter.id )
-        puts "#{self.host.name}'s waiter has been changed to #{new_waiter.name}."
+        puts "#{self.host.name}'s waiter has been changed from #{old_waiter.name} to #{new_waiter.name}."
         new_waiter
     end
 
