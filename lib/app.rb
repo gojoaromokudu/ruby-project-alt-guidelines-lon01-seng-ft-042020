@@ -1,4 +1,5 @@
 require "tty-prompt"
+require "pry"
 class RestaurantApp
     def run
         welcome
@@ -67,7 +68,7 @@ class RestaurantApp
         case user_input
         when 1
           puts "Let's Assign a waiter"
-          #assign_waiter
+          assign_waiter_menu
         when 2
             puts "Let's change the waiter for this booking"
            # change_waiter
@@ -81,6 +82,20 @@ class RestaurantApp
           puts "Going back to the Main Menu"
           main_menu
         end
+    end
+
+    def assign_waiter_menu
+        prompt = TTY::Prompt.new
+        puts "You can assign a waiter here"
+        host_name_for_booking = prompt.ask("Who's booking would you like to assign a waiter to? Please state the name of the host:")
+        # => Who's booking would you like to assign a waiter to?
+        host_to_be_assigned_waiter = Host.find_by(name: host_name_for_booking)
+        booking_to_be_assigned_waiter = Booking.find_by(host_id:host_to_be_assigned_waiter.id)
+        booking_to_be_assigned_waiter.assign_waiter
+        puts "Done!"
+        puts "Going back to the Booking menu"
+        sleep (2)
+        booking_menu
     end
 
     def waiter_menu
