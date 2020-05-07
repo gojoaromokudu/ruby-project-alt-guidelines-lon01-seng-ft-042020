@@ -158,10 +158,11 @@ class RestaurantApp
 
         host_for_booking = Host.create_host(name:host_name_for_booking, group_size:host_group_size_for_booking,allergies:host_allergies_for_booking)
         puts "A new host profile has been created for #{host_for_booking.name}."
-        sleep(2)
+        prompt.keypress("Press any key to continue")
         host_for_booking.create_booking(day_for_booking)
-        sleep(2)
+        prompt.keypress("Press any key to continue")
         puts "Done!"
+        prompt.keypress("Press any key to continue")
         puts "Going back to the Booking menu"
         sleep (2)
         booking_menu
@@ -173,12 +174,19 @@ class RestaurantApp
         host_name_for_booking = prompt.ask("Who's booking would you like to see details for? Please state the name of the host:")
         # => Who's booking to see details for?
         host_to_show_details_for = Host.find_by(name: host_name_for_booking)
-        booking_to_show_details_for = Booking.find_by(host_id:host_to_show_details_for.id)
-        booking_to_show_details_for.booking_details
-        puts "Done!"
-        puts "Going back to the Booking menu"
-        sleep (2)
-        booking_menu
+        if host_to_show_details_for
+            booking_to_show_details_for = Booking.find_by(host_id:host_to_show_details_for.id)
+            booking_to_show_details_for.booking_details
+            puts "Done!"
+            prompt.keypress("Press any key to continue")
+            puts "Going back to the Booking menu"
+            sleep (2)
+            booking_menu
+        else
+            prompt.warn( "This person doesn't have a booking yet You can create one in the Create Booking menu.")
+            prompt.keypress("Press any key to continue")            
+            view_booking_menu
+        end
     end
 
     def assign_waiter_menu
@@ -190,6 +198,7 @@ class RestaurantApp
         booking_to_be_assigned_waiter = Booking.find_by(host_id:host_to_be_assigned_waiter.id)
         booking_to_be_assigned_waiter.assign_waiter
         puts "Done!"
+        prompt.keypress("Press any key to continue")
         puts "Going back to the Booking menu"
         sleep (2)
         booking_menu
@@ -200,15 +209,25 @@ class RestaurantApp
         puts "You can change a waiter for a booking here"
         host_name_for_booking = prompt.ask("Who's booking would you like to change a waiter for? Please state the name of the host:")
         # => Who's booking would you like to change a waiter for?
+        #doenst check if host exists
         host_to_change_waiter = Host.find_by(name: host_name_for_booking)
         #can be shortened
+        #doenst check if booking exists
         booking_to_change_waiter = Booking.find_by(host_id:host_to_change_waiter.id)
+
         new_waiter = prompt.ask("Who would you like the new waiter to be? Please state the name of the waiter:")
-        booking_to_change_waiter.change_waiter_by_name(new_waiter)
-        puts "Done!"
-        puts "Going back to the Booking menu"
-        sleep (2)
-        booking_menu
+        if Waiter.find_by(name: new_waiter)
+            booking_to_change_waiter.change_waiter_by_name(new_waiter)
+            puts "Done!"
+            prompt.keypress("Press any key to continue")
+            puts "Going back to the Booking menu"
+            sleep (2)
+            booking_menu
+        else
+            prompt.warn( "This waiter doesn't work for us, please try another waiter.")
+            prompt.keypress("Press any key to continue")            
+            change_waiter_menu
+        end
     end
 
     def cancel_booking_menu
@@ -243,6 +262,7 @@ class RestaurantApp
         booking_to_find_reciept_for.show_total
         booking_to_find_reciept_for.show_reciept
         puts "Done!"
+        prompt.keypress("Press any key to continue")
         puts "Going back to the Booking menu"
         sleep (2)
         booking_menu

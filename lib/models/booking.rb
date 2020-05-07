@@ -53,7 +53,7 @@ class Booking < ActiveRecord::Base
     def calculate_total
         total = self.sub_total + self.service_charge
         self.update(total: total)
-        puts "The total for this booking is £#{self.total}."
+       # puts "The total for this booking is £#{self.total}."
     end
 
     def show_total

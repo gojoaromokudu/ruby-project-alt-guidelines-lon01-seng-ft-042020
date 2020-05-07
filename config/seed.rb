@@ -9,6 +9,6 @@ elena = Host.create(name:"Elena",group_size: 9)
 
 Booking.destroy_all
 random_day1 = ["Mon","Tues","Weds","Thurs","Fri","Sat"].sample
-Booking.create(host_id: anderson.id,day: random_day1)
+anderson.create_booking(random_day1)
 random_day2 = ["Mon","Tues","Weds","Thurs","Fri","Sat"].sample
-Booking.create(host_id: elena.id,day: random_day2)
+elena.create_booking(random_day2)
