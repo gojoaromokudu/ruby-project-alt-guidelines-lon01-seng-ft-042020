@@ -171,7 +171,7 @@ class RestaurantApp
     def view_booking_menu
         prompt = TTY::Prompt.new
         puts "You can view booking details here"
-        host_name_for_booking = prompt.ask("Who's booking to see details for? Please state the name of the host:")
+        host_name_for_booking = prompt.ask("Who's booking would you like to see details for? Please state the name of the host:")
         # => Who's booking to see details for?
         host_to_show_details_for = Host.find_by(name: host_name_for_booking)
         booking_to_show_details_for = Booking.find_by(host_id:host_to_show_details_for.id)
@@ -219,12 +219,18 @@ class RestaurantApp
         # => Who's booking would you like to cancel?
         host_to_cancel_booking = Host.find_by(name: host_name_for_booking)
         #can be shortened
-        booking_to_cancel = Booking.find_by(host_id:host_to_cancel_booking.id)
-        booking_to_cancel.cancel_booking
-        puts "Done!"
-        puts "Going back to the Booking menu"
-        sleep (2)
-        booking_menu
+        if host_to_cancel_booking
+            booking_to_cancel = Booking.find_by(host_id:host_to_cancel_booking.id)
+            booking_to_cancel.cancel_booking
+            puts "Done!"
+            puts "Going back to the Booking menu"
+            sleep (2)
+            booking_menu
+        else
+            prompt.error( "This Booking doesn't exist.")
+            prompt.warn( "Please try a different name")
+            cancel_booking_menu
+        end
     end
 
     def show_payment_menu
@@ -253,7 +259,7 @@ class RestaurantApp
             puts "#{waiter.name} has a selling style: #{waiter.selling_style}, and a capacity of #{waiter.capacity}."
         end
         puts "Done!"
-        prompt.keypress("Press any key to continue, or you will be returned to the waiter menu in 15 seconds", timeout: 15)
+        prompt.keypress("Press any SPACE continue", keys: [:space])
         puts "Going back to the Waiter menu"
         waiter_menu
     end
@@ -279,16 +285,22 @@ class RestaurantApp
 
     def fire_waiter_menu
         prompt = TTY::Prompt.new
-        puts "You can fire a new waiter here"
+        puts "You can fire a waiter here"
 
         waiter_to_be_fired_name = prompt.ask("Who would you like to fire? Please state their name:")
         # => Who would you like to fire?
         waiter_to_be_fired = Waiter.find_by(name: waiter_to_be_fired_name)
+        if waiter_to_be_fired
         waiter_to_be_fired.fire_waiter
         puts "Done!"
         puts "Going back to the Waiter menu"
         sleep (2)
         waiter_menu
+        else
+            prompt.error( "This Waiter doesn't work here.")
+            prompt.warn( "Please try a different waiter")
+            fire_waiter_menu
+        end
     end
  ###### END OF WAITER MENU
  

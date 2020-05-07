@@ -15,7 +15,7 @@ class Host < ActiveRecord::Base
         puts "#{new_booking.waiter.name} has been assigned to #{self.name}'s booking'."
     end
 
- #returns best selling style based on group size
+    #returns best selling style based on group size
     def best_selling_style
          style = nil
         if self.group_size <= 4
@@ -27,16 +27,4 @@ class Host < ActiveRecord::Base
         end
         style
     end
-
-  
 end
-
-#If group_size is between 0 - 4 assign a waiter that's "knowledgeble"  
-#If group_size is between 5 - 8 assign a waiter that pays "attention to detail"
-#If group_size is > 9 assign a waiter that's "pushy" 
-
-#If avg_age > 30, assign a waiter that's "knowledgeble"
-#If allergies are present, assign a waiter that pays "attention to detail"
-
-#4 < self.group_size  <= 8
-

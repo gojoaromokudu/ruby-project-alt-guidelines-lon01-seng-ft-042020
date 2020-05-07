@@ -78,15 +78,22 @@ class Booking < ActiveRecord::Base
     end
 
     #Booking instance method updates attribute values of the corresponding host object
+    # def update_host_name(new_name)
+    #     old_name = self.host.name
+    #     self.host.update(new_name)
+       
+    #     puts "The host's name has been updated from #{old_name} to #{self.host.name}. "
+    # end
+    # works wit just name and grou_size. will find allergies fix later
     def update_host(value)
         if value.class == Integer
            self.host.update(group_size: value)
         elsif
             value.class == String  &&  value.capitalize != "Yes" && value.capitalize != "No" 
            self.host.update(name: value)
-        elsif 
-            value.capitalize == "Yes" || value.capitalize == "No" 
-            self.host.update(allergies: value)  
+        # elsif 
+        #     # value.capitalize == "Yes" || value.capitalize == "No" 
+            # self.host.update(allergies: value)  
         end
     end
 end
