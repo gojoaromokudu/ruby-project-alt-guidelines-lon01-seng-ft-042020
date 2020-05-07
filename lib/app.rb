@@ -95,22 +95,27 @@ class RestaurantApp
     def waiter_menu
         prompt = TTY::Prompt.new
         choices = [
-        {name: 'Hire Waiter', value: 1},
-        {name: 'Fire Waiter', value: 2},
-        {name: 'Back to Main Menu', value: 3}
+        {name: 'View All Waiters', value: 1},
+        {name: 'Hire Waiter', value: 2},
+        {name: 'Fire Waiter', value: 3},
+        {name: 'Back to Main Menu', value: 4}
         ]
       
         puts "This is the Waiter Menu"
         user_input = prompt.select("What would you like to do?", choices)
         
         case user_input
+            
         when 1
+            puts "Let's see all the waiters"
+            view_all_waiters_menu
+        when 2
             puts "Let's hire a waiter"
             hire_waiter_menu
-        when 2
+        when 3
             puts "Let's fire a waiter"
             fire_waiter_menu
-        when 3
+        when 4
           puts "Going back to the Main Menu"
           main_menu
         end
@@ -240,6 +245,19 @@ class RestaurantApp
  ######END OF BOOKING MENU
 
  ###### WAITER MENU
+    def view_all_waiters_menu
+        prompt = TTY::Prompt.new
+        puts "You can view all waiters here"
+        sleep(2)
+        Waiter.all.map do |waiter| 
+            puts "#{waiter.name} has a selling style: #{waiter.selling_style}, and a capacity of #{waiter.capacity}."
+        end
+        puts "Done!"
+        prompt.keypress("Press any key to continue, or you will be returned to the waiter menu in 15 seconds", timeout: 15)
+        puts "Going back to the Waiter menu"
+        waiter_menu
+    end
+ 
     def hire_waiter_menu
         prompt = TTY::Prompt.new
         selling_styles = ["knowledgeable","attention to detail","pushy"]
