@@ -2,14 +2,50 @@ require "tty-prompt"
 require "pry"
 class RestaurantApp
     def run
+        readme
         welcome
         login
         main_menu
     end
 
+    def readme
+        puts ""
+        puts ""
+        puts ""
+        puts ""
+        puts ""
+        puts ""
+        puts "Welcome to GBD’s Booking Agent - Where the booking manages itself!
+        Create your waiter profiles and have our expert algorithms allocate your waiters to a booking based on which host they will perform best with.
+        Organise your bookings and update details of your hosts. 
+        Have a database to store all your previous hosts data to make their next visit run smoother."
+        puts ""
+        puts ""
+        puts ""
+        puts ""
+        puts ""
+        puts ""
+        puts ""
+        puts ""
+        puts ""
+        puts "" 
+        puts ""
+        puts ""
+        puts "**Coming soon:**
+        - Hosts will be able to create a user account, upload their contact details to have an open line of communication with the restaurant and update or cancel their bookings
+        - Waiter allocations will be more precise based of information provided by the host (i.e. out time, specific allergies, etc)
+        - Use our analytics to to find out which waiters are meeting targets and which are performing below expectations
+        - Create rota’s for waiters based on given constraints"
+        puts ""
+        puts ""
+        puts ""
+        puts ""
+    end
+
     def welcome
         prompt = TTY::Prompt.new
-        puts "Welcome to GBD’s Booking Agent - Where the booking manages itself!"
+        prompt.ok("Welcome to GBD’s Booking Agent - Where the booking manages itself!")
+
         prompt.keypress("Press any key to continue")
     end
 
