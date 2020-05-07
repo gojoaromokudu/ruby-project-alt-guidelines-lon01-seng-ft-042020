@@ -30,7 +30,6 @@ class RestaurantApp
         puts ""
         puts "" 
         puts ""
-        puts ""
         puts "**Coming soon:**
         - Hosts will be able to create a user account, upload their contact details to have an open line of communication with the restaurant and update or cancel their bookings
         - Waiter allocations will be more precise based of information provided by the host (i.e. out time, specific allergies, etc)
