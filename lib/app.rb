@@ -116,29 +116,25 @@ class RestaurantApp
         end
     end
     
-    # def host_menu
-    #     prompt = TTY::Prompt.new
-    #     choices = [
-    #     {name: 'View Host', value: 1},
-    #     {name: 'View All Hosts', value: 2},
-    #     {name: 'Back to Main Menu', value: 3}
-    #     ]
+    def host_menu
+        prompt = TTY::Prompt.new
+        choices = [
+        {name: 'View All Hosts', value: 1},
+        {name: 'Back to Main Menu', value: 2}
+        ]
       
-    #     puts "This is the Host Menu"
-    #     user_input = prompt.select("What would you like to do?", choices)
+        puts "This is the Host Menu"
+        user_input = prompt.select("What would you like to do?", choices)
         
-    #     case user_input
-    #     when 1
-    #         puts "Let's view a host"
-    #        # view_host_menu
-    #     when 2
-    #         puts "Let's view all hosts"
-    #         #view_all_hosts_menu
-    #     when 3
-    #       puts "Going back to the Main Menu"
-    #       main_menu
-    #     end
-    # end
+        case user_input
+        when 1
+            puts "Let's view all hosts"
+            view_all_hosts_menu
+        when 2
+          puts "Going back to the Main Menu"
+          main_menu
+        end
+    end
 ##### END OF MAIN MENU
 
 ##### BOOKING MENU
@@ -278,6 +274,26 @@ class RestaurantApp
     end
  ###### END OF WAITER MENU
  
+ ###### HOST MENU
+    def view_all_hosts_menu
+        prompt = TTY::Prompt.new
+        puts "You can view all hosts here"
+        sleep(2)
+        Host.all.map do |host| 
+            if !host.allergies
+                puts "#{host.name} has a group of #{host.group_size} people and no allergies."
+            else
+                puts "#{host.name} has a group of #{host.group_size} people and the following allergies: #{host.allergies}."
+            end
+        end
+
+        puts "Done!"
+        puts "Going back to the Host menu"
+        sleep (2)
+        host_menu
+    end
+
+ ####### END OF HOST MENU
  def logout
 
     end
