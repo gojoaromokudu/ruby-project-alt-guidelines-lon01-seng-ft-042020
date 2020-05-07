@@ -8,10 +8,9 @@ class RestaurantApp
     end
 
     def welcome
-        puts "Welcome to our app..."
-        sleep(3)
-        puts "...You are a restaurant..."
-        sleep(2)
+        prompt = TTY::Prompt.new
+        puts "Welcome to GBD’s Booking Agent - Where the booking manages itself!"
+        prompt.keypress("Press any key to continue")
     end
 
     def login
@@ -256,10 +255,10 @@ class RestaurantApp
         puts "You can view all waiters here"
         sleep(2)
         Waiter.all.map do |waiter| 
-            puts "#{waiter.name} has a selling style: #{waiter.selling_style}, and a capacity of #{waiter.capacity}."
+            puts "#{waiter.name} has the selling style: #{waiter.selling_style}, and a section capacity of #{waiter.capacity}."
         end
         puts "Done!"
-        prompt.keypress("Press any SPACE continue", keys: [:space])
+        prompt.keypress("Press any key to continue")
         puts "Going back to the Waiter menu"
         waiter_menu
     end
@@ -278,6 +277,7 @@ class RestaurantApp
         new_waiter_capacity = prompt.slider('Capacity',min: 10, max: 40, step: 5, default: 10)
         Waiter.hire_waiter(name: new_waiter_name,selling_style: new_waiter_selling_style,capacity: new_waiter_capacity)
         puts "Done!"
+        prompt.keypress("Press any key to continue")
         puts "Going back to the Waiter menu"
         sleep (2)
         waiter_menu
@@ -293,12 +293,13 @@ class RestaurantApp
         if waiter_to_be_fired
         waiter_to_be_fired.fire_waiter
         puts "Done!"
+        prompt.keypress("Press any key to continue")
         puts "Going back to the Waiter menu"
         sleep (2)
         waiter_menu
         else
-            prompt.error( "This Waiter doesn't work here.")
-            prompt.warn( "Please try a different waiter")
+            prompt.error( "This waiter doesn't work here.")
+            prompt.warn( "Please try a different waiter... going back to Fire Waiter Menu")
             fire_waiter_menu
         end
     end
@@ -318,7 +319,8 @@ class RestaurantApp
         end
 
         puts "Done!"
-        puts "Going back to the Host menu"
+        prompt.keypress("Press any key to return to the Host menu")
+        puts "Returning to the Host menu"
         sleep (2)
         host_menu
     end
